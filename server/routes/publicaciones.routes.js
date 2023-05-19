@@ -19,6 +19,6 @@ router.post('/',verifyToken, verifyDocente, createPublicacion)
 router.put('/:idPublicacion',verifyToken, verifyUserPub,updatePublicacion)
 
 //DELETE
-router.delete('/:idPublicacion',verifyToken,deletePublicacion)
+router.delete('/:idPublicacion',verifyToken, verifyUserPub, deletePublicacion)
 
 export default router;

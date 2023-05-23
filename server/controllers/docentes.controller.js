@@ -36,7 +36,7 @@ export const createDocente = async (req, res, next) => {
             'message': 'Docente has already been created',
         })
 
-        let newAdmin = await Docente.create({
+        let newDocente = await Docente.create({
             id,
             nombreUsuario,
             passwd,
@@ -47,7 +47,7 @@ export const createDocente = async (req, res, next) => {
             idFacultad
         })
 
-        res.status(200).json(newAdmin)
+        res.status(200).json(newDocente)
     } catch (err) {
         next(err);
     }

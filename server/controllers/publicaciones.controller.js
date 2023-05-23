@@ -30,7 +30,7 @@ export const getPublicacionByid = async (req, res, next) => {
 
 export const createPublicacion = async (req, res, next) => {
     try {
-        const _id = req.user.id
+       
 
         const {
             tituloPublicacion,

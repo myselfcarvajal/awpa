@@ -64,3 +64,5 @@ app.use((err, req, res, next) => {
 app.listen(app.get('port'), () => {
     console.log('Server on port', app.get('port'));
 });
+
+export default app;

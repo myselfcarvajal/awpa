@@ -1,5 +1,5 @@
 import express from 'express';
-import {getDocentes, getDocenteById, createDocente, updateDocente, deleteDocente } from '../controllers/docentes.controller.js'
+import {getDocentes, getDocenteById, getPublicationsByDocenteId, createDocente, updateDocente, deleteDocente } from '../controllers/docentes.controller.js'
 import { verifyAdmin, verifyUser} from '../utils/verifyToken.js'
 
 const router = express.Router();
@@ -9,6 +9,9 @@ router.get('/', getDocentes)
 
 //GET
 router.get('/:idDocente', getDocenteById)
+
+//GET
+router.get('/:idDocente/publicaciones', getPublicationsByDocenteId)
 
 //CREATE
 router.post('/', verifyAdmin, createDocente)

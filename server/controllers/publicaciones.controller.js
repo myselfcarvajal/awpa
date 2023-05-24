@@ -1,12 +1,25 @@
 import { uploadFile } from '../s3.js'
 import { Publicacion } from '../models/Publicacion.js'
+import { Docente } from '../models/Docente.js'
+import { Facultad } from '../models/Facultad.js'
+import sequelize from 'sequelize'
 
 // const mysqlConnection = require('../database');
 // import * as s from '../database.js'
 
 export const getPublicaciones = async (req, res, next) => {
     try {
-        const publicaciones = await Publicacion.findAll();
+        const publicaciones = await Publicacion.findAll({
+            include: [
+                {
+                    model: Docente,
+                    attributes: [[sequelize.fn('CONCAT', sequelize.col('nombre'), ' ', sequelize.col('apellido')), 'fullName']],
+                    include: {
+                        model: Facultad,
+                        attributes: ['nombreFacultad']
+                    }
+                }]
+        });
         res.status(200).json(publicaciones);
     } catch (err) {
         next(err);
@@ -18,6 +31,15 @@ export const getPublicacionByid = async (req, res, next) => {
         const { idPublicacion } = req.params;
 
         const pub = await Publicacion.findOne({
+            include: [
+                {
+                    model: Docente,
+                    attributes: [[sequelize.fn('CONCAT', sequelize.col('nombre'), ' ', sequelize.col('apellido')), 'fullName']],
+                    include: {
+                        model: Facultad,
+                        attributes: ['nombreFacultad']
+                    }
+                }],
             where: {
                 idPublicacion,
             },
@@ -30,7 +52,7 @@ export const getPublicacionByid = async (req, res, next) => {
 
 export const createPublicacion = async (req, res, next) => {
     try {
-       
+
 
         const {
             tituloPublicacion,

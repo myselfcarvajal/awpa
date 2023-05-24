@@ -1,8 +1,18 @@
 import { Facultad } from '../models/Facultad.js'
+import { Docente } from '../models/Docente.js'
+import sequelize from 'sequelize'
 
 export const getFacultades = async (req, res, next) => {
     try {
-        const facultades = await Facultad.findAll();
+        const facultades = await Facultad.findAll({
+            include: {
+                model: Docente,
+                attributes: [
+                    [sequelize.fn('CONCAT', sequelize.col('nombre'), ' ', sequelize.col('apellido')), 'fullName'],
+                    'email',
+                ],
+            }
+        });
         res.status(200).json(facultades);
     } catch (err) {
         next(err);
@@ -14,6 +24,13 @@ export const getFacultadById = async (req, res, next) => {
         const { idFacultad } = req.params;
 
         const facultad = await Facultad.findOne({
+            include: {
+                model: Docente,
+                attributes: [
+                    [sequelize.fn('CONCAT', sequelize.col('nombre'), ' ', sequelize.col('apellido')), 'fullName'],
+                    'email',
+                ],
+            },
             where: {
                 codigoFacultad: idFacultad,
             },

@@ -55,6 +55,14 @@ export const getDocenteById = async (req, res, next) => {
                 id: idDocente,
             },
         });
+
+        if (!docente) {
+            return res.status(404).json({
+                'status': 404,
+                'message': 'Docente not found'
+            });
+        }
+
         res.status(200).json(docente);
     } catch (err) {
         next(err);

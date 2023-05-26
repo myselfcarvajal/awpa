@@ -18,6 +18,14 @@ export const getAdminById = async (req, res, next) => {
                 id: idAdmin,
             },
         });
+
+        if (!admin) {
+            return res.status(404).json({
+                'status': 404,
+                'message': 'Admin not found'
+            });
+        }
+
         res.status(200).json(admin);
     } catch (err) {
         next(err);

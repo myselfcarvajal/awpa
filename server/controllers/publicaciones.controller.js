@@ -30,6 +30,13 @@ export const getPublicacionByid = async (req, res, next) => {
     try {
         const { idPublicacion } = req.params;
 
+        if (isNaN(idPublicacion)) {
+            return res.status(400).json({
+                'status': 400,
+                'message': 'Invalid publication ID'
+            });
+        }
+
         const pub = await Publicacion.findOne({
             include: [
                 {
@@ -44,6 +51,14 @@ export const getPublicacionByid = async (req, res, next) => {
                 idPublicacion,
             },
         });
+
+        if (!pub) {
+            return res.status(404).json({
+                'status': 404,
+                'message': 'Publicacion not found'
+            });
+        }
+
         res.status(200).json(pub);
     } catch (err) {
         next(err);

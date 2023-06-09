@@ -30,6 +30,15 @@ export const getDocentes = async (req, res, next) => {
     }
 };
 
+export const getDocentesBasicData = async (req, res, next) => {
+    try {
+        const docentes = await Docente.findAll();
+        res.status(200).json(docentes);
+    } catch (err) {
+        next(err);
+    }
+};
+
 export const getDocenteById = async (req, res, next) => {
     try {
         const { idDocente } = req.params;
@@ -68,6 +77,31 @@ export const getDocenteById = async (req, res, next) => {
         next(err);
     }
 };
+
+
+export const getDocentesBasicDataById = async (req, res, next) => {
+    try {
+        const { idDocente } = req.params;
+
+        const docente = await Docente.findOne({
+            where: {
+                id: idDocente,
+            },
+        });
+
+        if (!docente) {
+            return res.status(404).json({
+                'status': 404,
+                'message': 'Docente not found'
+            });
+        }
+
+        res.status(200).json(docente);
+    } catch (err) {
+        next(err);
+    }
+};
+
 
 export const getPublicationsByDocenteId = async (req, res, next) => {
     try {

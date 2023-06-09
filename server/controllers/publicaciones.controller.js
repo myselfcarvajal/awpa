@@ -78,6 +78,7 @@ export const createPublicacion = async (req, res, next) => {
         // const result = await uploadFile(req.files.file) a    bilitar luego
 
         const file_name = req.files.file.name
+        console.log(req.files.file)
         const awsUrl = 'https://awpa-aws.s3.amazonaws.com/'
 
         const urlPublicacion = awsUrl + file_name
@@ -117,6 +118,7 @@ export const updatePublicacion = async (req, res, next) => {
         // const result = await uploadFile(req.files.file) a    bilitar luego
 
         const file_name = req.files.file.name
+        console.log(req.files.file)
         const awsUrl = 'https://awpa-aws.s3.amazonaws.com/'
 
         const urlPublicacion = awsUrl + file_name

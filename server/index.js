@@ -33,13 +33,26 @@ async function database() {
 database()
 
 // Middlewares 
-app.use(cors());
+
 app.use(cookieParser());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(fileUpload({
     useTempFiles: true,
     tempFileDir: './uploads'
+}));
+
+app.use((req, res, next) => {
+    res.append('Access-Control-Allow-Origin', ['http://localhost:5173']); // Cambia la URL según tu configuración
+    res.append('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.append('Access-Control-Allow-Headers', 'Content-Type');
+    res.append('Access-Control-Allow-Credentials', 'true');
+    next();
+});
+
+app.use(cors({
+    origin: 'http://localhost:5173', // Cambia la URL según tu configuración
+    credentials: true,
 }));
 
 // Routes

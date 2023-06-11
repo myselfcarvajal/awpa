@@ -9,6 +9,9 @@ export const AWS_SECRET_ACCESS_KEY = process.env.AWS_SECRET_ACCESS_KEY
 
 export const SECRET = process.env.SECRET
 
-export const database = process.env.database
-export const username = process.env.username
-export const password = process.env.password
+export const MYSQL_URL = process.env.MYSQL_URL
+export const MYSQLDATABASE = process.env.MYSQLDATABASE
+export const MYSQLHOST = process.env.MYSQLHOST
+export const MYSQLPASSWORD = process.env.MYSQLPASSWORD
+export const MYSQLPORT = process.env.MYSQLPORT
+export const MYSQLUSER = process.env.MYSQLUSER
